@@ -1,0 +1,59 @@
+/*
+# deeplearning - deep learning in a box, an image carrying all the basic tools 
+# of deeplearning
+#
+# Copyright (C) 2018 Jorge M. Faleiro Jr.
+#   
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#  
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#  
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+plugins {
+   id 'net.nemerosa.versioning' version '2.7.1'
+}
+
+// https://github.com/nemerosa/versioning
+version = versioning.info.base
+
+
+task env(type:Exec, group:"docker", description:"displays environment") {
+	commandLine 'env'
+}
+
+task run(type:Exec, group:"docker", description:"runs latest container") {
+	executable "sh"
+	args "-c", "docker run -p 8888:8888 -p 6006:6006 -t jfaleiro/deeplearning"
+}
+
+task build(type:Exec, group:"docker", description:"builds local as latest container") {
+	executable "sh"
+	args "-c", "docker build . -t jfaleiro/deeplearning"
+}
+
+task tag(type:Exec, group:"docker", description:"tags local container as version from branch name (release/{version})") {
+	executable "sh"
+	args "-c", "docker tag image jfaleiro/deeplearning:$version"
+}
+
+
+/*
+
+
+
+task push() {
+	exec {
+		executable "sh"
+		args "-c", 'docker push jfaleiro/deeplearning:0.1'
+	}
+}
+*/
