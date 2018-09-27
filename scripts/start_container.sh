@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
+mkdir -p /work/notebooks/sessions
+mkdir -p /work/deeplogs
 cp --no-clobber /root/images/*.ipynb /work/notebooks
 cd /work/notebooks && jupyter notebook --allow-root --ip `local_ip.sh` &
 tensorboard --logdir /work/deeplogs 

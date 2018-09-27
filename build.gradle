@@ -32,7 +32,22 @@ task env(type:Exec, group:"docker", description:"displays environment") {
 
 task run(type:Exec, group:"docker", description:"runs latest container") {
 	executable "sh"
-	args "-c", "docker run -p 8888:8888 -p 6006:6006 -t jfaleiro/deeplearning"
+	args "-c", "docker run -p 8888:8888 -p 6006:6006 -v `pwd`/work:/work --name dl jfaleiro/deeplearning"
+}
+
+task rm(type:Exec, group:"docker", description:"remove container named 'dl'") {
+	executable "sh"
+	args "-c", "docker rm dl"
+}
+
+task start(type:Exec, group:"docker", description:"starts container named 'dl'") {
+	executable "sh"
+	args "-c", "docker start dl"
+}
+
+task stop(type:Exec, group:"docker", description:"stops container named 'dl'") {
+	executable "sh"
+	args "-c", "docker stop dl"
 }
 
 task build(type:Exec, group:"docker", description:"builds local as latest container") {
