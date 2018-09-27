@@ -32,7 +32,7 @@ task env(type:Exec, group:"docker", description:"displays environment") {
 
 task run(type:Exec, group:"docker", description:"runs latest container") {
 	executable "sh"
-	args "-c", "docker run -p 8888:8888 -p 6006:6006 -v `pwd`/work:/work --name dl jfaleiro/deeplearning"
+	args "-c", "docker run -p 8888:8888 -p 6006:6006 -v `pwd`/work:/work --name dl deeplearning"
 }
 
 task rm(type:Exec, group:"docker", description:"remove container named 'dl'") {
@@ -52,23 +52,15 @@ task stop(type:Exec, group:"docker", description:"stops container named 'dl'") {
 
 task build(type:Exec, group:"docker", description:"builds local as latest container") {
 	executable "sh"
-	args "-c", "docker build . -t jfaleiro/deeplearning"
+	args "-c", "docker build . -t deeplearning"
 }
 
 task tag(type:Exec, group:"docker", description:"tags local container as version from branch name (release/{version})") {
 	executable "sh"
-	args "-c", "docker tag image jfaleiro/deeplearning:$version"
+	args "-c", "docker tag deeplearning jfaleiro/deeplearning:$version"
 }
 
-
-/*
-
-
-
-task push() {
-	exec {
-		executable "sh"
-		args "-c", 'docker push jfaleiro/deeplearning:0.1'
-	}
+task push(type:Exec, group:"docker", description:"pushes pre-tagged container as (release/{version})") {
+	executable "sh"
+	args "-c", "docker push jfaleiro/deeplearning:$version"
 }
-*/
