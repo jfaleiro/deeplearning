@@ -1,0 +1,7 @@
+### gradle ###
+.gradle
+.directory
+work/deeplogs/
+work/notebooks/sessions/
+work/notebooks/.ipynb*
+work/notebooks/Untitled*
